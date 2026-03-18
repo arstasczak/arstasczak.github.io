@@ -257,6 +257,94 @@
   .gallery-item{ cursor:pointer; }
   .gallery-item:hover .gallery-caption{ background:linear-gradient(transparent,rgba(0,60,150,.85)); }
 
+  /* === 7-DNIOWA PROGNOZA === */
+  .forecast7-wrap{
+    width:100%; max-width:860px; display:flex; gap:10px; flex-wrap:nowrap;
+    overflow-x:auto; padding-bottom:6px; animation:fadeUp 1.2s ease both .4s;
+  }
+  .forecast7-wrap::-webkit-scrollbar{height:4px}
+  .forecast7-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:2px}
+  .f7-day{
+    flex:0 0 110px; background:rgba(255,255,255,.14); backdrop-filter:blur(10px);
+    border:2px solid rgba(255,255,255,.25); border-radius:18px; padding:16px 10px;
+    text-align:center; color:#fff;
+  }
+  .f7-day.today{ background:rgba(255,214,10,.2); border-color:var(--sun); }
+  .f7-name{ font-family:'Righteous',cursive; font-size:.85rem; color:var(--sun); }
+  .f7-date{ font-size:.7rem; color:rgba(255,255,255,.6); margin-bottom:8px; }
+  .f7-icon{ font-size:2rem; margin:6px 0; display:block; }
+  .f7-temp-max{ font-family:'Righteous',cursive; font-size:1.4rem; }
+  .f7-temp-min{ font-size:.8rem; color:rgba(255,255,255,.6); }
+  .f7-rain{ font-size:.75rem; color:#fff; background:rgba(80,160,255,.35); border-radius:20px; padding:2px 8px; margin-top:6px; display:inline-block; font-weight:800; }
+
+  /* === MAPA === */
+  .map-wrap{
+    width:100%; max-width:860px; border-radius:22px; overflow:hidden;
+    border:2px solid rgba(255,255,255,.25);
+    box-shadow:0 6px 30px rgba(0,60,120,.3);
+    animation:fadeUp 1.2s ease both .4s;
+  }
+
+  /* === SŁOWNICZEK === */
+  .phrasebook{
+    width:100%; max-width:860px; animation:fadeUp 1.2s ease both .4s;
+  }
+  .phrase-search-wrap{ margin-bottom:14px; }
+  .phrase-search{
+    width:100%; padding:12px 18px; border-radius:50px;
+    border:2px solid rgba(255,255,255,.3); background:rgba(255,255,255,.12);
+    color:#fff; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:700;
+    outline:none; backdrop-filter:blur(8px);
+  }
+  .phrase-search::placeholder{ color:rgba(255,255,255,.5); }
+  .phrases-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px;
+  }
+  .phrase-card{
+    background:rgba(255,255,255,.12); border:1.5px solid rgba(255,255,255,.22);
+    border-radius:14px; padding:12px 16px; cursor:pointer;
+    transition:transform .15s, background .15s;
+  }
+  .phrase-card:hover{ background:rgba(255,255,255,.2); transform:translateY(-2px); }
+  .phrase-pl{ font-size:.78rem; color:rgba(255,255,255,.65); font-weight:700; margin-bottom:3px; }
+  .phrase-bg{ font-size:1rem; font-weight:800; color:#fff; }
+  .phrase-pron{ font-size:.78rem; color:var(--sun); margin-top:3px; font-style:italic; }
+  .phrase-speaker{ font-size:.85rem; opacity:.6; margin-left:4px; }
+  .phrase-card:hover .phrase-speaker{ opacity:1; }
+
+  /* === QUIZ === */
+  .quiz-box{
+    width:100%; max-width:700px; background:rgba(255,255,255,.14);
+    backdrop-filter:blur(14px); border:2px solid rgba(255,255,255,.3);
+    border-radius:24px; padding:30px 34px;
+    box-shadow:0 6px 30px rgba(0,60,120,.2);
+    animation:fadeUp 1.2s ease both .5s;
+  }
+  .quiz-progress{ font-size:.82rem; color:var(--sun); font-weight:800; margin-bottom:12px; font-family:'Righteous',cursive; }
+  .quiz-question{ font-size:1.15rem; font-weight:800; color:#fff; line-height:1.5; margin-bottom:20px; }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; }
+  .quiz-opt{
+    background:rgba(255,255,255,.15); border:2px solid rgba(255,255,255,.3);
+    border-radius:12px; padding:12px 18px; color:#fff; font-size:.95rem; font-weight:700;
+    cursor:pointer; text-align:left; transition:all .2s;
+  }
+  .quiz-opt:hover{ background:rgba(255,255,255,.25); }
+  .quiz-opt.correct{ background:rgba(50,200,100,.35); border-color:#32c864; }
+  .quiz-opt.wrong{ background:rgba(255,80,80,.3); border-color:#ff5050; }
+  .quiz-feedback{ margin-top:14px; font-size:.9rem; font-weight:700; color:rgba(255,255,255,.9); min-height:20px; line-height:1.5; }
+  .quiz-next{
+    margin-top:18px; background:linear-gradient(135deg,var(--sun),var(--coral));
+    border:none; border-radius:50px; padding:11px 28px;
+    font-family:'Righteous',cursive; font-size:1rem; color:#fff; cursor:pointer;
+    box-shadow:0 4px 16px rgba(255,154,0,.4); transition:transform .15s;
+  }
+  .quiz-next:hover{ transform:scale(1.04); }
+  .quiz-result{
+    text-align:center; padding:10px 0;
+    font-family:'Righteous',cursive; font-size:1.3rem; color:var(--sun);
+    line-height:1.6;
+  }
+
   @media(max-width:600px){
     .countdown-card{padding:24px 16px} .count-num{font-size:2.2rem} .count-box{min-width:70px;padding:14px 12px}
     .palm{font-size:4rem} .widget{min-width:280px} .header{padding:20px 18px 14px}
@@ -336,16 +424,21 @@
       </div>
     </div>
     <div class="widget">
-      <div class="widget-title"><span class="widget-icon">🌊</span> Morze Czarne</div>
-      <div class="temp-big">21<span class="temp-unit">°C</span></div>
-      <div class="widget-desc">Temperatura wody w czerwcu 🏊</div>
+      <div class="widget-title"><span class="widget-icon">🌊</span> Morze Czarne – woda</div>
+      <div class="temp-big" id="w-sea">--<span class="temp-unit">°C</span></div>
+      <div class="widget-desc" id="w-sea-desc">Ładowanie...</div>
       <div class="weather-details" style="margin-top:10px">
-        <div class="wd-row"><span>🌡️ Min. czerwca</span><span>~19°C</span></div>
-        <div class="wd-row"><span>🌡️ Maks. czerwca</span><span>~22°C</span></div>
-        <div class="wd-row"><span>🌊 Stan morza</span><span>spokojne</span></div>
+        <div class="wd-row"><span>🌊 Fale</span><span id="w-wave">--</span></div>
+        <div class="wd-row"><span>💨 Wiatr od morza</span><span id="w-sea-wind">--</span></div>
       </div>
-      <div class="badge">✅ Idealna do kąpieli!</div>
+      <div style="margin-top:8px;font-size:0.72rem;color:rgba(255,255,255,0.45);">📡 Open-Meteo Marine API</div>
     </div>
+  </div>
+
+  <!-- 7-DNIOWA PROGNOZA -->
+  <div class="section-title">📅 Prognoza 7-dniowa – Warna</div>
+  <div class="forecast7-wrap" id="forecast7">
+    <div style="color:rgba(255,255,255,.7);text-align:center;padding:20px">⏳ Ładowanie prognozy...</div>
   </div>
 
   <!-- HOTEL -->
@@ -431,6 +524,36 @@
   </div>
 
   <!-- MUSIC PLAYER usunięty – sterowanie tylko przez przycisk FAB w nagłówku -->
+
+  <!-- MAPA ALBENY -->
+  <div class="section-title">🗺️ Mapa Albeny</div>
+  <div class="map-wrap">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11589.123456789!2d28.0800!3d43.3600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a6932f4e1f64a7%3A0x7d3e2f1a2b3c4d5e!2sAlbena%2C%20Bu%C5%82garia!5e0!3m2!1spl!2spl!4v1234567890"
+      width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade" title="Mapa Albeny">
+    </iframe>
+  </div>
+
+  <!-- SŁOWNICZEK BUŁGARSKI -->
+  <div class="section-title">🗣️ Słowniczek bułgarski</div>
+  <div class="phrasebook">
+    <div class="phrase-search-wrap">
+      <input type="text" id="phrase-search" placeholder="🔍 Szukaj zwrotu..." class="phrase-search" oninput="filterPhrases()">
+    </div>
+    <div class="phrases-grid" id="phrases-grid"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="section-title">🧠 Quiz o Bułgarii</div>
+  <div class="quiz-box" id="quiz-box">
+    <div class="quiz-progress" id="quiz-progress">Pytanie 1 / 8</div>
+    <div class="quiz-question" id="quiz-question"></div>
+    <div class="quiz-options" id="quiz-options"></div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="quiz-next" id="quiz-next" onclick="nextQuestion()" style="display:none">Następne pytanie ➡️</button>
+    <div class="quiz-result" id="quiz-result" style="display:none"></div>
+  </div>
 
   <div class="motivation">
     🌞 Pakuj walizki, nakładaj krem i nastaw budzik — <span>wakacje w Bułgarii</span> są tuż za rogiem!<br>
@@ -620,7 +743,196 @@ function closeModal(){
   }
 })();
 
-// ===== WIKIPEDIA PHOTO LOADER =====
+// ===== TEMPERATURA WODY – Open-Meteo Marine (Warna) =====
+(async function fetchMarine(){
+  try{
+    const url='https://marine-api.open-meteo.com/v1/marine'
+      +'?latitude=43.2&longitude=27.9'
+      +'&current=sea_surface_temperature,wave_height,wind_speed_10m'
+      +'&timezone=Europe%2FSofia';
+    const r=await fetch(url);
+    const d=await r.json();
+    const c=d.current;
+    const t=Math.round(c.sea_surface_temperature);
+    document.getElementById('w-sea').innerHTML=t+'<span class="temp-unit">°C</span>';
+    const badge = t>=22?'🏊 Idealna do pływania!':t>=18?'😊 Przyjemna temperatura':t>=15?'🥶 Chłodna, ale można':' 🥶 Zimna';
+    document.getElementById('w-sea-desc').textContent=badge;
+    document.getElementById('w-wave').textContent=c.wave_height.toFixed(1)+' m';
+    document.getElementById('w-sea-wind').textContent=Math.round(c.wind_speed_10m)+' km/h';
+  }catch(e){
+    document.getElementById('w-sea-desc').textContent='Brak danych';
+  }
+})();
+
+// ===== 7-DNIOWA PROGNOZA – Open-Meteo =====
+(async function fetchForecast(){
+  const WMO={
+    0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
+    51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
+    71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',
+    95:'⛈️',96:'⛈️',99:'⛈️'
+  };
+  const DAYS=['Niedz','Pon','Wt','Śr','Czw','Pt','Sob'];
+  try{
+    const url='https://api.open-meteo.com/v1/forecast'
+      +'?latitude=43.2141&longitude=27.9147'
+      +'&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
+      +'&timezone=Europe%2FSofia&forecast_days=7';
+    const r=await fetch(url);
+    const d=await r.json();
+    const today=new Date().toISOString().slice(0,10);
+    const html=d.daily.time.map((date,i)=>{
+      const isToday=date===today;
+      const day=new Date(date);
+      const name=DAYS[day.getDay()];
+      const dd=date.slice(8)+'.'+date.slice(5,7);
+      const icon=WMO[d.daily.weathercode[i]]||'🌡️';
+      const max=Math.round(d.daily.temperature_2m_max[i]);
+      const min=Math.round(d.daily.temperature_2m_min[i]);
+      const rain=d.daily.precipitation_probability_max[i];
+      return `<div class="f7-day${isToday?' today':''}">
+        <div class="f7-name">${isToday?'Dziś':name}</div>
+        <div class="f7-date">${dd}</div>
+        <span class="f7-icon">${icon}</span>
+        <div class="f7-temp-max">${max}°</div>
+        <div class="f7-temp-min">${min}°</div>
+        <div class="f7-rain">💧 ${rain}%</div>
+      </div>`;
+    }).join('');
+    document.getElementById('forecast7').innerHTML=html;
+  }catch(e){
+    document.getElementById('forecast7').innerHTML='<div style="color:rgba(255,255,255,.7);padding:20px">Błąd ładowania prognozy</div>';
+  }
+})();
+
+// ===== SŁOWNICZEK BUŁGARSKI =====
+const phrases=[
+  {pl:'Dzień dobry',bg:'Добър ден',pron:'Dobăr den'},
+  {pl:'Dobry wieczór',bg:'Добър вечер',pron:'Dobăr vecher'},
+  {pl:'Cześć / Hej',bg:'Здравей',pron:'Zdravey'},
+  {pl:'Do widzenia',bg:'Довиждане',pron:'Dovizhdane'},
+  {pl:'Tak',bg:'Да',pron:'Da'},
+  {pl:'Nie',bg:'Не',pron:'Ne'},
+  {pl:'Proszę',bg:'Моля',pron:'Molya'},
+  {pl:'Dziękuję',bg:'Благодаря',pron:'Blagodarya'},
+  {pl:'Przepraszam',bg:'Съжалявам',pron:'Săzhalyavam'},
+  {pl:'Ile to kosztuje?',bg:'Колко струва?',pron:'Kolko struva?'},
+  {pl:'Gdzie jest plaża?',bg:'Къде е плажа?',pron:'Kăde e plazha?'},
+  {pl:'Woda / piwo',bg:'Вода / бира',pron:'Voda / bira'},
+  {pl:'Jedzenie jest pyszne!',bg:'Храната е вкусна!',pron:'Hranata e vkusna!'},
+  {pl:'Rachunek poproszę',bg:'Сметката, моля',pron:'Smetkata, molya'},
+  {pl:'Hotel',bg:'Хотел',pron:'Hotel'},
+  {pl:'Plaża',bg:'Плаж',pron:'Plazh'},
+  {pl:'Morze',bg:'Море',pron:'More'},
+  {pl:'Słońce',bg:'Слънце',pron:'Slănce'},
+  {pl:'Gorąco!',bg:'Горещо!',pron:'Goreşto!'},
+  {pl:'Pomocy!',bg:'Помощ!',pron:'Pomoşt!'},
+  {pl:'Nie rozumiem',bg:'Не разбирам',pron:'Ne razbiram'},
+  {pl:'Mówisz po angielsku?',bg:'Говориш ли английски?',pron:'Govorish li angliyski?'},
+  {pl:'Smacznego!',bg:'Приятен апетит!',pron:'Priyaten apetit!'},
+  {pl:'Na zdrowie!',bg:'Наздраве!',pron:'Nazdrave!'},
+];
+
+function renderPhrases(list){
+  document.getElementById('phrases-grid').innerHTML=list.map(p=>`
+    <div class="phrase-card" onclick="speakBulgarian('${p.bg.replace(/'/g,"\\'")}')" title="Kliknij aby usłyszeć wymowę">
+      <div class="phrase-pl">${p.pl}</div>
+      <div class="phrase-bg">${p.bg} <span class="phrase-speaker">🔊</span></div>
+      <div class="phrase-pron">/${p.pron}/</div>
+    </div>`).join('');
+}
+
+function speakBulgarian(text){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'bg-BG';
+  utt.rate = 0.85;
+  utt.pitch = 1;
+  // Próbuj znaleźć bułgarski głos, jeśli brak – użyj domyślnego
+  const voices = window.speechSynthesis.getVoices();
+  const bgVoice = voices.find(v => v.lang.startsWith('bg'));
+  if(bgVoice) utt.voice = bgVoice;
+  window.speechSynthesis.speak(utt);
+}
+// Inicjuj słowniczek po załadowaniu głosów (Chrome ładuje je async)
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged = () => {};
+  window.speechSynthesis.getVoices(); // trigger load
+}
+renderPhrases(phrases);
+
+function filterPhrases(){
+  const q=document.getElementById('phrase-search').value.toLowerCase();
+  renderPhrases(phrases.filter(p=>
+    p.pl.toLowerCase().includes(q)||p.bg.includes(q)||p.pron.toLowerCase().includes(q)
+  ));
+}
+
+// ===== QUIZ =====
+const quizData=[
+  {q:'Jak nazywa się waluta Bułgarii?',a:['Euro','Lew (лев)','Drachma','Hrywna'],c:0,info:'Od 1 stycznia 2026 roku Bułgaria przyjęła euro (€), stając się 21. członkiem strefy euro. Wcześniej obowiązywał lew (BGN) sztywno powiązany kursem 1.95583 BGN = 1 EUR.'},
+  {q:'W którym roku Bułgaria wstąpiła do Unii Europejskiej?',a:['2004','2007','2010','2013'],c:1,info:'Bułgaria przystąpiła do UE 1 stycznia 2007 roku razem z Rumunią.'},
+  {q:'Jak po bułgarsku powiemy "dziękuję"?',a:['Моля','Здравей','Благодаря','Наздраве'],c:2,info:'Благодаря (blagodarya) – dziękuję. Моля (molya) – proszę. Наздраве – na zdrowie!'},
+  {q:'Ile kilometrów liczy bułgarskie wybrzeże Morza Czarnego?',a:['ok. 200 km','ok. 378 km','ok. 500 km','ok. 150 km'],c:1,info:'Bułgaria ma 378 km wybrzeża Morza Czarnego z licznymi plażami i kurortami.'},
+  {q:'Co oznacza kiwanie głową w Bułgarii?',a:['Tak','Nie','Nie wiem','Może'],c:1,info:'Uwaga! W Bułgarii kiwanie głową oznacza NIE, a potrząsanie – TAK. Odwrotnie niż w Polsce!'},
+  {q:'Jak nazywa się najsłynniejszy kurort niedaleko Albeny?',a:['Sunny Beach','Golden Sands','Nesebar','Burgas'],c:1,info:'Złote Piaski (Zlatni Pjasaci) to słynny kurort 30 km od Albeny, jeden z największych nad Morzem Czarnym.'},
+  {q:'Które miasto jest stolicą Bułgarii?',a:['Warna','Burgas','Sofia','Płowdiw'],c:2,info:'Sofia (София) – stolica i największe miasto Bułgarii, zamieszkane przez ok. 1.3 mln ludzi.'},
+  {q:'W jakim roku Nesebar wpisano na Listę UNESCO?',a:['1979','1983','1990','2001'],c:1,info:'Starożytne miasto Nesebar zostało wpisane na Listę Światowego Dziedzictwa UNESCO w 1983 roku.'},
+];
+
+let qIdx=0, score=0, answered=false;
+
+function renderQuestion(){
+  const q=quizData[qIdx];
+  document.getElementById('quiz-progress').textContent=`Pytanie ${qIdx+1} / ${quizData.length}`;
+  document.getElementById('quiz-question').textContent=q.q;
+  document.getElementById('quiz-feedback').textContent='';
+  document.getElementById('quiz-next').style.display='none';
+  answered=false;
+  document.getElementById('quiz-options').innerHTML=q.a.map((opt,i)=>
+    `<button class="quiz-opt" onclick="answerQuiz(${i})">${opt}</button>`
+  ).join('');
+}
+
+function answerQuiz(i){
+  if(answered) return;
+  answered=true;
+  const q=quizData[qIdx];
+  const btns=document.querySelectorAll('.quiz-opt');
+  btns[q.c].classList.add('correct');
+  if(i!==q.c){ btns[i].classList.add('wrong'); }
+  else { score++; }
+  btns.forEach(b=>b.disabled=true);
+  document.getElementById('quiz-feedback').textContent=(i===q.c?'✅ Dobrze! ':'❌ Błąd! ')+q.info;
+  document.getElementById('quiz-next').style.display=qIdx<quizData.length-1?'inline-block':'none';
+  if(qIdx===quizData.length-1) showResult();
+}
+
+function nextQuestion(){
+  qIdx++;
+  renderQuestion();
+}
+
+function showResult(){
+  const pct=Math.round(score/quizData.length*100);
+  const msg=pct>=80?'🏆 Ekspert od Bułgarii!':pct>=50?'👏 Dobry wynik!':'📚 Warto się douczyć przed wakacjami!';
+  setTimeout(()=>{
+    document.getElementById('quiz-result').style.display='block';
+    document.getElementById('quiz-result').innerHTML=
+      `${msg}<br><span style="font-size:1rem;color:#fff">Wynik: ${score}/${quizData.length} (${pct}%)</span><br>
+      <button class="quiz-next" onclick="restartQuiz()" style="margin-top:14px">🔄 Zagraj ponownie</button>`;
+  },800);
+}
+
+function restartQuiz(){
+  qIdx=0; score=0;
+  document.getElementById('quiz-result').style.display='none';
+  renderQuestion();
+}
+
+renderQuestion();
+
 // Dla zdjęć oznaczonych data-wiki-img pobiera miniaturę z Wikipedia API
 (async function(){
   const imgs = document.querySelectorAll('img[data-wiki-img]');
