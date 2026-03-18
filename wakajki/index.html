@@ -311,14 +311,15 @@
   <div class="widgets-row">
     <div class="widget">
       <div class="widget-title"><span class="widget-icon">🌤️</span> Pogoda teraz w Warnie</div>
-      <div class="temp-big">9<span class="temp-unit">°C</span></div>
-      <div class="widget-desc">Częściowe zachmurzenie</div>
+      <div class="temp-big" id="w-temp">--<span class="temp-unit">°C</span></div>
+      <div class="widget-desc" id="w-desc">Ładowanie...</div>
       <div class="weather-details">
-        <div class="wd-row"><span>🌬️ Wiatr</span><span>17 km/h</span></div>
-        <div class="wd-row"><span>💧 Deszcz</span><span>10%</span></div>
-        <div class="wd-row"><span>🌅 Wschód słońca</span><span>~06:15</span></div>
-        <div class="wd-row"><span>🌇 Zachód słońca</span><span>~18:50</span></div>
+        <div class="wd-row"><span>🌬️ Wiatr</span><span id="w-wind">--</span></div>
+        <div class="wd-row"><span>💧 Wilgotność</span><span id="w-humid">--</span></div>
+        <div class="wd-row"><span>🌅 Wschód słońca</span><span id="w-sunrise">--</span></div>
+        <div class="wd-row"><span>🌇 Zachód słońca</span><span id="w-sunset">--</span></div>
       </div>
+      <div style="margin-top:10px;font-size:0.72rem;color:rgba(255,255,255,0.45);">📡 Dane: Open-Meteo · odświeżane co godzinę</div>
     </div>
     <div class="widget">
       <div class="widget-title"><span class="widget-icon">☀️</span> Pogoda w dniu wylotu</div>
@@ -456,7 +457,9 @@
 <script>
 // ===== COUNTDOWN =====
 function tick(){
-  const d=new Date('2026-06-04T14:10:00')-new Date();
+  // Cel: 4 czerwca 2026, 14:10 czasu polskiego (Europe/Warsaw)
+  // W czerwcu Polska jest w CEST = UTC+2, więc 14:10 CEST = 12:10 UTC
+  const d=new Date('2026-06-04T12:10:00Z')-new Date();
   if(d<=0){['days','hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='00');return;}
   document.getElementById('days').textContent=String(Math.floor(d/86400000)).padStart(2,'0');
   document.getElementById('hours').textContent=String(Math.floor(d%86400000/3600000)).padStart(2,'0');
@@ -570,6 +573,52 @@ function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow='';
 }
+
+// ===== POGODA NA ŻYWO – Open-Meteo (Warna: 43.2141°N, 27.9147°E) =====
+(async function fetchWeather(){
+  const WMO = {
+    0:'Bezchmurnie ☀️', 1:'Przeważnie pogodnie 🌤️', 2:'Częściowe zachmurzenie ⛅', 3:'Zachmurzenie ☁️',
+    45:'Mgła 🌫️', 48:'Szadź 🌫️',
+    51:'Mżawka 🌦️', 53:'Mżawka 🌦️', 55:'Gęsta mżawka 🌧️',
+    61:'Deszcz 🌧️', 63:'Umiarkowany deszcz 🌧️', 65:'Ulewa 🌧️',
+    71:'Śnieg 🌨️', 73:'Śnieg 🌨️', 75:'Silny śnieg ❄️',
+    80:'Przelotne opady 🌦️', 81:'Przelotne opady 🌧️', 82:'Gwałtowne opady ⛈️',
+    95:'Burza ⛈️', 96:'Burza z gradem ⛈️', 99:'Burza z gradem ⛈️',
+  };
+
+  function fmt(iso){ return iso ? iso.split('T')[1].slice(0,5) : '--'; }
+
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast'
+      + '?latitude=43.2141&longitude=27.9147'
+      + '&current=temperature_2m,relative_humidity_2m,weathercode,windspeed_10m'
+      + '&daily=sunrise,sunset'
+      + '&timezone=Europe%2FSofia'
+      + '&forecast_days=1';
+
+    const res = await fetch(url);
+    const d = await res.json();
+    const c = d.current;
+    const day = d.daily;
+
+    document.getElementById('w-temp').innerHTML =
+      Math.round(c.temperature_2m) + '<span class="temp-unit">°C</span>';
+    document.getElementById('w-desc').textContent =
+      WMO[c.weathercode] || 'Brak danych';
+    document.getElementById('w-wind').textContent =
+      Math.round(c.windspeed_10m) + ' km/h';
+    document.getElementById('w-humid').textContent =
+      c.relative_humidity_2m + '%';
+    document.getElementById('w-sunrise').textContent =
+      fmt(day.sunrise?.[0]);
+    document.getElementById('w-sunset').textContent =
+      fmt(day.sunset?.[0]);
+
+  } catch(e) {
+    document.getElementById('w-desc').textContent = 'Błąd ładowania danych';
+    console.warn('Weather fetch error:', e);
+  }
+})();
 
 // ===== WIKIPEDIA PHOTO LOADER =====
 // Dla zdjęć oznaczonych data-wiki-img pobiera miniaturę z Wikipedia API
