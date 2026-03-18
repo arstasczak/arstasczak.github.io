@@ -158,7 +158,24 @@
 
   /* PHOTO GALLERY */
   .gallery{ width:100%; max-width:860px; animation:fadeUp 1.2s ease both .4s; }
-  .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+  /* Gdy ostatni element jest sam w rzędzie (7 elementów = 2 pełne rzędy po 3 + 1 sam) */
+  .gallery-grid .gallery-item:last-child:nth-child(3n+1){
+    grid-column: 1 / -1;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  @media(max-width:700px){
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); }
+    .gallery-grid .gallery-item:last-child:nth-child(3n+1){ grid-column:auto; max-width:none; margin:0; }
+  }
+  @media(max-width:480px){
+    .gallery-grid{ grid-template-columns:1fr; }
+  }
   .gallery-item{ border-radius:18px; overflow:hidden; position:relative; aspect-ratio:4/3;
     box-shadow:0 6px 24px rgba(0,40,100,.3); cursor:pointer; transition:transform .25s,box-shadow .25s; }
   .gallery-item:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 36px rgba(0,40,100,.45)}
@@ -362,7 +379,8 @@
     <div class="gallery-grid">
 
       <div class="gallery-item" onclick="openModal('aladzha',this)">
-        <img src="https://www.museumvarna.com/wp-content/uploads/aladza_manastir-1024x769.jpg"
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Aladzha_Monastery-01.JPG/600px-Aladzha_Monastery-01.JPG"
+             onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/BG_Aladzha_monastery_5.jpg/600px-BG_Aladzha_monastery_5.jpg'"
              alt="Klasztor Aładża Warna Bułgaria">
         <div class="gallery-caption">🏛️ Klasztor Aładża – skalne jaskinie XII w.</div>
       </div>
@@ -398,6 +416,14 @@
         <img src="https://albena.bg/image/NTY5LmpwZy85NTAvNjA4LzEvNC84NS8vLw/ecosystemgallery.jpg"
              alt="Rezerwat Baltata Albena Bułgaria">
         <div class="gallery-caption">🌿 Rezerwat Baltata – leśna puszcza nad morzem</div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal('nessebar',this)">
+        <img data-wiki-img="Nesebar"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Nesebar_panorama_Bulgaria.jpg/600px-Nesebar_panorama_Bulgaria.jpg"
+             onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Nesebar_fotovolare.jpg/600px-Nesebar_fotovolare.jpg'"
+             alt="Nesebar panorama stare miasto Bułgaria UNESCO">
+        <div class="gallery-caption">🏰 Nesebar – Perła Morza Czarnego, UNESCO</div>
       </div>
 
     </div>
@@ -480,8 +506,8 @@ fabBtn.addEventListener('click',toggle);
 const attractions = {
   aladzha: {
     title: '🏛️ Klasztor Aładża',
-    img: 'https://www.museumvarna.com/wp-content/uploads/aladza_manastir-1024x769.jpg',
-    desc: 'Klasztor Aładża to jeden z najsłynniejszych średniowiecznych klasztorów skalnych na bułgarskim wybrzeżu Morza Czarnego. Jaskinie zostały wykute w pionowej skale wapiennej na wysokości 25 metrów. Mnisi hesychastyczni zamieszkiwali te groty w XIII–XIV wieku. Dziś można zwiedzać kaplicę, katakomby oraz podziwiać resztki kolorowych fresków, od których pochodzi turecka nazwa „Alaca" – pstry, kolorowy.',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Aladzha_Monastery-01.JPG/600px-Aladzha_Monastery-01.JPG',
+    desc: 'Klasztor Aładża to jeden z najsłynniejszych średniowiecznych klasztorów skalnych na bułgarskim wybrzeżu Morza Czarnego. Jaskinie zostały wykute w pionowej skale wapiennej na wysokości 25 metrów. Mnisi hesychastyczni zamieszkiwali te groty w XIII–XIV wieku. Dziś można zwiedzać kaplicę, katakomby oraz podziwiać resztki kolorowych fresków, od których pochodzi turecka nazwa \'Alaca\' – pstry, kolorowy.',
     facts: ['📍 17 km od centrum Warny', '⏰ Czynny całorocznie', '🎟️ Bilet ~5 BGN', '🕍 XII–XIV wiek', '🚌 Bus z centrum Warny'],
   },
   cathedral: {
@@ -508,6 +534,12 @@ const attractions = {
     img: 'https://albena.bg/image/MzIwNi5qcGcvOTUwLzYwOC8xLzQvODUvLy8/img-409.jpg',
     desc: 'Złote Piaski to jeden z największych i najpopularniejszych kurortów na bułgarskim wybrzeżu Morza Czarnego, położony 17 km na północ od Warny. Plaża rozciąga się na 3,5 km i słynie z czystego, drobnego, złocistego piasku, który – według legendy – powstał z pirackiego złota zamienionego przez naturę w piasek. Kurort oferuje bogaty program rozrywkowy, liczne hotele, restauracje i aquapark Aquapolis.',
     facts: ['📍 17 km od Warny', '🏖️ Plaża 3,5 km długości', '💧 Aquapark Aquapolis', '🌡️ Woda 25–28°C latem', '🚌 Bus 9/89 z Warny'],
+  },
+  nessebar: {
+    title: '🏰 Nesebar – Perła Morza Czarnego',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Nesebar_poluostrov.jpg/600px-Nesebar_poluostrov.jpg',
+    desc: 'Nesebar to jedno z najstarszych miast Europy, liczące ponad 3000 lat historii. Starożytne miasto, wpisane na Listę Dziedzictwa Kulturowego UNESCO w 1983 roku, leży na skalistym półwyspie połączonym z lądem wąskim przesmykiem. Na jego uliczkach można podziwiać ruiny greckich świątyń, bizantyjskie kościoły, osmańskie meczety i drewniane domy z XVIII–XIX w. Nesebar słynie z ponad 40 kościołów – ma ich więcej niż jakiekolwiek inne miasto tej wielkości na świecie.',
+    facts: ['📍 90 km od Albeny', '🏛️ UNESCO od 1983 r.', '⛪ 40+ kościołów', '🕍 3000 lat historii', '🚌 Bus/wycieczka z Albeny'],
   },
   baltata: {
     title: '🌿 Rezerwat Baltata',
@@ -538,6 +570,21 @@ function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow='';
 }
+
+// ===== WIKIPEDIA PHOTO LOADER =====
+// Dla zdjęć oznaczonych data-wiki-img pobiera miniaturę z Wikipedia API
+(async function(){
+  const imgs = document.querySelectorAll('img[data-wiki-img]');
+  for(const img of imgs){
+    const title = img.dataset.wikiImg;
+    try{
+      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+      const d = await r.json();
+      const src = d.originalimage?.source || d.thumbnail?.source;
+      if(src){ img.src = src; img.onerror = null; }
+    }catch(e){ /* zostaje fallback z src */ }
+  }
+})();
 
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 </script>
